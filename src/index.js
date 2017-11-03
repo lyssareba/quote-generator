@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
-import {Grid, Row, Col, Button, Jumbotron} from 'react-bootstrap'
+import {Grid, Row, Col, Well, Button} from 'react-bootstrap'
 import Spinner from './Spinner'
 import axios from 'axios'
 import './index.css'
@@ -15,17 +15,23 @@ const propTypes = {
 class Load extends React.Component {
   render() {  
     return(
-      <Col xs={12}>
-        <div className="text">
-          {this.props.text}
-        </div>
-        <div className="author">  
-          {this.props.author}
-        </div>
-        <div className="link">
-          <a href={this.props.link}>Quote Link</a>
-        </div>
-      </Col>
+      <div>
+      <Row>
+        <Col className="quoteData clearfix">
+          <h2>{this.props.text}</h2>
+        </Col>
+        <Col className="quoteData clearfix">  
+          <h3>- {this.props.author}</h3>
+        </Col>
+        </Row>
+        <Row>
+        <Col id = "nextQuote" className="quoteData clearfix">
+          <a href={this.props.link}>
+            <Button>Quote Link</Button>
+          </a>
+        </Col>
+      </Row>
+      </div>
     );
   }
 }
@@ -73,26 +79,28 @@ class Quote extends React.Component {
     console.log(this.state.isLoading);
     return (this.state.isLoading) 
     ? (
-      <div className="flex-centered">
+      <div className="flex-centered clearfix">
         <Spinner />
       </div>
       ) 
       : (
       <Grid fluid>
-        <Jumbotron>
+        <div id="header">
+        </div>
+        <Col lg={6} lgOffset={3}>
+        <Well id="quoteBox">
+          <Load 
+            author={this.state.quoteData.quoteAuthor}
+            link={this.state.quoteData.quoteLink}
+            text={this.state.quoteData.quoteText}
+          />
           <Row>
-            <Load 
-              author={this.state.quoteData.quoteAuthor}
-              link={this.state.quoteData.quoteLink}
-              text={this.state.quoteData.quoteText}
-            />
+            <Col id="nextQuote">
+              <Button bsStyle="primary" onClick={this.api}>New Quote</Button>
+            </Col>
           </Row>
-          <Row>
-          <Col xs={12}>
-            <Button bsSize="large" bsStyle="primary" onClick={this.api}>Get Quote</Button>
-          </Col>
-          </Row>
-        </Jumbotron>
+          </Well>
+        </Col>
       </Grid>
     );
   }
