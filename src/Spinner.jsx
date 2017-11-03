@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpinnerImg from './assets/spinner-bluehost-grad-200x200.gif';
+import SpinnerImg from './assets/spinner.gif';
 
 const { string, bool } = PropTypes;
 const propTypes = {
